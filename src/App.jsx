@@ -6,6 +6,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [selectedPlan, setSelectedPlan] = useState('Business Pro (₹6,999)');
   const [clientName, setClientName] = useState('');
+  const [clientContact, setClientContact] = useState('');
   const [businessType, setBusinessType] = useState('');
 
   useEffect(() => {
@@ -26,11 +27,18 @@ function App() {
     fetchProjects();
   }, []);
 
-  const handleWhatsAppRedirect = (e) => {
+  const handleEmailRedirect = (e) => {
     e.preventDefault();
-    const message = `Hi UK WEBS! I'm *${clientName || 'a prospective client'}*.\n\n*Business/Project:* ${businessType || 'Custom Website'}\n*Selected Package:* ${selectedPlan}\n\nLet's discuss building this!`;
-    const encodedMsg = encodeURIComponent(message);
-    window.open(`https://wa.me/918688465492?text=${encodedMsg}`, '_blank');
+    const subject = encodeURIComponent(`New UK WEBS Inquiry: ${clientName} - ${selectedPlan}`);
+    const body = encodeURIComponent(
+      `Hi UK WEBS,\n\n` +
+      `Client Name: ${clientName}\n` +
+      `Client Contact (Email/Phone): ${clientContact}\n` +
+      `Business / Project Idea: ${businessType}\n` +
+      `Selected Package: ${selectedPlan}\n\n` +
+      `Please reach out to discuss further!`
+    );
+    window.location.href = `mailto:udaybhaskarnidigattu@gmail.com?subject=${subject}&body=${body}`;
   };
 
   const packages = [
@@ -40,7 +48,7 @@ function App() {
       tag: 'Best for Shops & Creators',
       features: [
         '1-Page High-Speed Responsive Design',
-        'Direct WhatsApp Order / Inquiry Button',
+        'Direct Email / Inquiry Capture Form',
         'Mobile-First UI + Google Maps Embed',
         'Free Cloud Hosting Setup (Vercel/Netlify)',
         'Delivered in 48 Hours'
@@ -68,7 +76,7 @@ function App() {
         'React.js Frontend + Cloud Database',
         'Custom Admin Dashboard to Manage Data',
         'User Authentication & Role Access',
-        'API Integrations (WhatsApp, Payments, Maps)',
+        'API Integrations (Email, Payments, Maps)',
         'Scalable Architecture for Viral Traffic'
       ],
       highlight: false
@@ -150,7 +158,7 @@ function App() {
             maxWidth: '640px',
             margin: '0 auto 36px'
           }}>
-            From high-converting local business portals and WhatsApp ordering menus to full-stack React & Cloud web applications—engineered for speed, mobile users, and viral traffic.
+            From high-converting local business portals and digital menus to full-stack React & Cloud web applications—engineered for speed, mobile users, and viral traffic.
           </p>
 
           <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -186,15 +194,15 @@ function App() {
       <div className="marquee-wrapper">
         <div className="marquee-track">
           <span>
-            🚀 FAST 48-HOUR DELIVERY &nbsp;&nbsp;•&nbsp;&nbsp; 📱 100% MOBILE RESPONSIVE &nbsp;&nbsp;•&nbsp;&nbsp; 💬 DIRECT WHATSAPP ORDERING &nbsp;&nbsp;•&nbsp;&nbsp; ⚡ REACT + CLOUD DATABASE &nbsp;&nbsp;•&nbsp;&nbsp; 🔒 ZERO DOWNTIME HOSTING &nbsp;&nbsp;•&nbsp;&nbsp; 🎯 CUSTOM ADMIN DASHBOARDS &nbsp;&nbsp;•&nbsp;&nbsp;
+            🚀 FAST 48-HOUR DELIVERY &nbsp;&nbsp;•&nbsp;&nbsp; 📱 100% MOBILE RESPONSIVE &nbsp;&nbsp;•&nbsp;&nbsp; ⚡ REACT + CLOUD DATABASE &nbsp;&nbsp;•&nbsp;&nbsp; 🔒 ZERO DOWNTIME HOSTING &nbsp;&nbsp;•&nbsp;&nbsp; 🎯 CUSTOM ADMIN DASHBOARDS &nbsp;&nbsp;•&nbsp;&nbsp;
           </span>
           <span>
-            🚀 FAST 48-HOUR DELIVERY &nbsp;&nbsp;•&nbsp;&nbsp; 📱 100% MOBILE RESPONSIVE &nbsp;&nbsp;•&nbsp;&nbsp; 💬 DIRECT WHATSAPP ORDERING &nbsp;&nbsp;•&nbsp;&nbsp; ⚡ REACT + CLOUD DATABASE &nbsp;&nbsp;•&nbsp;&nbsp; 🔒 ZERO DOWNTIME HOSTING &nbsp;&nbsp;•&nbsp;&nbsp; 🎯 CUSTOM ADMIN DASHBOARDS &nbsp;&nbsp;•&nbsp;&nbsp;
+            🚀 FAST 48-HOUR DELIVERY &nbsp;&nbsp;•&nbsp;&nbsp; 📱 100% MOBILE RESPONSIVE &nbsp;&nbsp;•&nbsp;&nbsp; ⚡ REACT + CLOUD DATABASE &nbsp;&nbsp;•&nbsp;&nbsp; 🔒 ZERO DOWNTIME HOSTING &nbsp;&nbsp;•&nbsp;&nbsp; 🎯 CUSTOM ADMIN DASHBOARDS &nbsp;&nbsp;•&nbsp;&nbsp;
           </span>
         </div>
       </div>
 
-      {/* Live Projects Section (Powered by Supabase) */}
+      {/* Live Projects Section */}
       <section id="projects" style={{ maxWidth: '1150px', margin: '0 auto', padding: '80px 24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', marginBottom: '40px', gap: '16px' }}>
           <div>
@@ -363,7 +371,7 @@ function App() {
         </div>
       </section>
 
-      {/* Instant WhatsApp Lead Form */}
+      {/* Privacy-Safe Direct Email Inquiry Form */}
       <section id="contact" style={{ maxWidth: '680px', margin: '0 auto', padding: '80px 24px' }}>
         <div style={{
           backgroundColor: '#ffffff',
@@ -376,10 +384,10 @@ function App() {
             Let’s Build Your Website
           </h2>
           <p style={{ color: '#64748b', textAlign: 'center', marginBottom: '28px', fontSize: '0.95rem' }}>
-            Fill in quick details below to start an instant WhatsApp chat with our dev team.
+            Fill in quick details below to send an email directly to our team.
           </p>
 
-          <form onSubmit={handleWhatsAppRedirect} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          <form onSubmit={handleEmailRedirect} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
             <div>
               <label style={{ display: 'block', fontWeight: '700', fontSize: '0.88rem', marginBottom: '6px' }}>Your Name</label>
               <input
@@ -388,6 +396,18 @@ function App() {
                 placeholder="e.g., Rahul Sharma"
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
+                style={{ width: '100%', padding: '12px 14px', borderRadius: '10px', border: '1px solid #cbd5e1', fontSize: '0.95rem' }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontWeight: '700', fontSize: '0.88rem', marginBottom: '6px' }}>Your Email or Contact Info</label>
+              <input
+                type="text"
+                required
+                placeholder="So we can reply back to you"
+                value={clientContact}
+                onChange={(e) => setClientContact(e.target.value)}
                 style={{ width: '100%', padding: '12px 14px', borderRadius: '10px', border: '1px solid #cbd5e1', fontSize: '0.95rem' }}
               />
             </div>
@@ -421,7 +441,7 @@ function App() {
               type="submit"
               style={{
                 marginTop: '8px',
-                backgroundColor: '#16a34a',
+                backgroundColor: '#2563eb',
                 color: '#ffffff',
                 border: 'none',
                 padding: '14px',
@@ -431,7 +451,7 @@ function App() {
                 cursor: 'pointer'
               }}
             >
-              💬 Send Inquiry via WhatsApp →
+              ✉️ Send Inquiry via Email →
             </button>
           </form>
         </div>
@@ -440,7 +460,7 @@ function App() {
       {/* Footer */}
       <footer style={{ backgroundColor: '#0f172a', color: '#94a3b8', textAlign: 'center', padding: '32px 24px', fontSize: '0.9rem' }}>
         <p style={{ color: '#ffffff', fontWeight: '700', marginBottom: '6px' }}>UK WEBS Digital Studio</p>
-        <p>Built with React, Supabase & Vercel • Vizianagaram, Andhra Pradesh</p>
+        <p>Contact: udaybhaskarnidigattu@gmail.com • Vizianagaram, Andhra Pradesh</p>
       </footer>
     </div>
   );

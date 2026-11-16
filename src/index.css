@@ -88,3 +88,17 @@ body {
 .float-badge {
   animation: floatBadge 3.5s ease-in-out infinite;
 }
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 860px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-menu-btn {
+    display: block !important;
+  }
+}

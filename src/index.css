@@ -12,12 +12,45 @@ body {
   color: #0f172a;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  background-image:
+    radial-gradient(#cbd5e1 1px, transparent 1px),
+    radial-gradient(circle at 85% 15%, rgba(37, 99, 235, 0.08) 0%, transparent 45%);
+  background-size: 28px 28px, 100% 100%;
 }
 
-/* Infinite Scrolling Marquee Animation */
 @keyframes scrollTicker {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes legWiggleLeft {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(9deg); }
+}
+
+@keyframes legWiggleRight {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-9deg); }
+}
+
+@keyframes pingWeb {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+.spider-walking .legs-left {
+  transform-origin: 26px 32px;
+  animation: legWiggleLeft 0.15s infinite ease-in-out;
+}
+
+.spider-walking .legs-right {
+  transform-origin: 38px 32px;
+  animation: legWiggleRight 0.15s infinite ease-in-out;
 }
 
 .marquee-wrapper {
@@ -25,27 +58,33 @@ body {
   white-space: nowrap;
   background: #0f172a;
   color: #ffffff;
-  padding: 14px 0;
+  padding: 15px 0;
   font-weight: 700;
   font-size: 0.9rem;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
+  position: relative;
+  z-index: 2;
 }
 
 .marquee-track {
   display: inline-block;
-  animation: scrollTicker 22s linear infinite;
+  animation: scrollTicker 24s linear infinite;
 }
 
 .marquee-track:hover {
   animation-play-state: paused;
 }
 
-/* Card Hover Pop Effect */
 .hover-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .hover-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
+  border-color: #2563eb !important;
+  box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
+}
+
+.float-badge {
+  animation: floatBadge 3.5s ease-in-out infinite;
 }

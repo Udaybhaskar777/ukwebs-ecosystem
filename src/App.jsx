@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SpiderCursor from './components/SpiderCursor';
+import WebBackground from './components/WebBackground';
 import Navbar from './components/Navbar';
 import Footer from './components/footer';
 import Home from './pages/Home';
@@ -14,6 +16,7 @@ import Admin from './pages/admin';
 function App() {
   return (
     <BrowserRouter>
+      <SpiderCursor />
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Navbar />
         <main style={{ flex: 1 }}>

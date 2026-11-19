@@ -1,4 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+
+:root {
+  --bg-obsidian: #070b14;
+  --bg-surface: #0d1424;
+  --bg-card: rgba(15, 23, 42, 0.72);
+  --border-subtle: rgba(148, 163, 184, 0.14);
+  --border-glow: rgba(56, 189, 248, 0.45);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent-cyan: #38bdf8;
+  --accent-blue: #3b82f6;
+  --accent-emerald: #10b981;
+}
 
 * {
   box-sizing: border-box;
@@ -6,89 +19,80 @@
   padding: 0;
 }
 
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  background-color: #ffffff;
-  color: #09090b;
-  scroll-behavior: smooth;
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-obsidian);
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.08), transparent 38%),
+    radial-gradient(circle at 85% 25%, rgba(59, 130, 246, 0.08), transparent 40%);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-.font-display {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-@keyframes scrollTicker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-@keyframes legWiggleLeft {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(9deg); }
-}
-
-@keyframes legWiggleRight {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-9deg); }
-}
-
-@keyframes pingWeb {
-  0% { transform: scale(0.6); opacity: 1; }
-  100% { transform: scale(1.9); opacity: 0; }
-}
-
-.spider-walking .legs-left {
-  transform-origin: 26px 32px;
-  animation: legWiggleLeft 0.15s infinite ease-in-out;
-}
-
-.spider-walking .legs-right {
-  transform-origin: 38px 32px;
-  animation: legWiggleRight 0.15s infinite ease-in-out;
-}
-
-.bento-card {
-  background-color: #fafafa;
-  border: 1.5px solid #e4e4e7;
-  border-radius: 20px;
+.uk-glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
   transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
 }
 
-.bento-card:hover {
+.uk-glass-card:hover {
   transform: translateY(-4px);
-  border-color: #2563eb;
-  box-shadow: 0 18px 30px -12px rgba(37, 99, 235, 0.15);
+  border-color: var(--border-glow);
+  box-shadow: 0 16px 40px rgba(2, 6, 23, 0.65), 0 0 24px rgba(56, 189, 248, 0.12);
 }
 
-.marquee-strip {
-  overflow: hidden;
-  white-space: nowrap;
-  background-color: #09090b;
+.uk-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
   color: #ffffff;
-  padding: 13px 0;
-  font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 0.88rem;
-  letter-spacing: 0.8px;
+  padding: 13px 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
 }
 
-.marquee-inner {
-  display: inline-block;
-  animation: scrollTicker 22s linear infinite;
+.uk-btn-primary:hover {
+  opacity: 0.94;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(14, 165, 233, 0.45);
 }
 
-@media (max-width: 900px) {
-  .desktop-nav {
-    display: none !important;
-  }
-  .mobile-menu-btn {
-    display: block !important;
-  }
-  .hero-split,
-  .bento-grid,
-  .estimator-grid {
-    grid-template-columns: 1fr !important;
-  }
+.uk-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.85);
+  color: #f8fafc;
+  font-weight: 600;
+  padding: 13px 24px;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.uk-btn-ghost:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(30, 41, 59, 0.9);
+}
+
+.uk-mono {
+  font-family: 'JetBrains Mono', monospace;
 }

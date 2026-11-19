@@ -1,90 +1,157 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
-  const [filter, setFilter] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchProjects() {
-      const { data } = await supabase
+    async function fetchAllProjects() {
+      const { data, error } = await supabase
         .from('projects')
         .select('*')
         .order('id', { ascending: false });
-      if (data) setProjects(data);
+
+      if (!error && data) setProjects(data);
       setLoading(false);
     }
-    fetchProjects();
+    fetchAllProjects();
   }, []);
 
-  const categories = ['All', ...new Set(projects.map((p) => p.category))];
-  const filteredProjects = filter === 'All' ? projects : projects.filter((p) => p.category === filter);
+  const categories = ['All', ...new Set(projects.map((p) => p.category).filter(Boolean))];
+  const filteredProjects =
+    selectedCategory === 'All'
+      ? projects
+      : projects.filter((p) => p.category === selectedCategory);
 
   return (
-    <div style={{ maxWidth: '1150px', margin: '0 auto', padding: '70px 24px' }}>
-      <span style={{ color: '#2563eb', fontWeight: '700', fontSize: '0.85rem', textTransform: 'uppercase' }}>
-        PORTFOLIO • LIVE CLOUD FEED
-      </span>
-      <h1 style={{ fontSize: '2.6rem', fontWeight: '800', margin: '8px 0 24px' }}>
-        Shipped & Live Projects
-      </h1>
+    <div style={{ maxWidth: '1220px', margin: '0 auto', padding: '52px 24px 96px' }}>
+      <div style={{ marginBottom: '36px' }}>
+        <div className="uk-mono" style={{ color: '#38bdf8', fontSize: '0.8rem', fontWeight: '700', marginBottom: '8px' }}>
+          ● COMPLETE DEPLOYMENT ARCHIVE
+        </div>
+        <h1 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: '900', letterSpacing: '-0.03em', marginBottom: '12px' }}>
+          Live Projects &amp; Ecosystem Tools
+        </h1>
+        <p style={{ color: '#94a3b8', fontSize: '1.02rem', maxWidth: '640px' }}>
+          Explore every client web portal, community platform, and utility application built and maintained under UK WEBS.
+        </p>
+      </div>
 
-      {/* Category Filter Buttons */}
-      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '36px' }}>
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            style={{
-              padding: '8px 18px',
-              borderRadius: '999px',
-              border: '1px solid #cbd5e1',
-              backgroundColor: filter === cat ? '#0f172a' : '#ffffff',
-              color: filter === cat ? '#ffffff' : '#334155',
-              fontWeight: '700',
-              cursor: 'pointer'
-            }}
-          >
-            {cat}
-          </button>
-        ))}
+      {/* INTERACTIVE CATEGORY TABS */}
+      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '32px' }}>
+        {categories.map((cat) => {
+          const active = selectedCategory === cat;
+          return (
+            <button
+              key={cat}
+              type="button"
+              onClick={() => setSelectedCategory(cat)}
+              style={{
+                padding: '9px 18px',
+                borderRadius: '999px',
+                fontSize: '0.86rem',
+                fontWeight: '700',
+                cursor: 'pointer',
+                border: active ? '1px solid #38bdf8' : '1px solid rgba(148, 163, 184, 0.18)',
+                backgroundColor: active ? 'rgba(56, 189, 248, 0.16)' : 'rgba(15, 23, 42, 0.75)',
+                color: active ? '#38bdf8' : '#cbd5e1',
+                transition: 'all 0.18s ease',
+              }}
+            >
+              {cat}
+            </button>
+          );
+        })}
       </div>
 
       {loading ? (
-        <p style={{ color: '#64748b', fontWeight: '600' }}>Loading live projects from Supabase...</p>
+        <div className="uk-glass-card" style={{ padding: '48px', textAlign: 'center', color: '#94a3b8' }}>
+          Loading projects...
+        </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '22px',
+          }}
+        >
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="hover-card"
+              className="uk-glass-card"
               style={{
-                backgroundColor: '#ffffff',
-                border: '1px solid #e2e8f0',
-                borderRadius: '16px',
                 padding: '28px',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'space-between'
+                justifyContent: 'space-between',
               }}
             >
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
-                  <span style={{ backgroundColor: '#eff6ff', color: '#2563eb', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: '700' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '16px',
+                  }}
+                >
+                  <span
+                    style={{
+                      backgroundColor: 'rgba(56, 189, 248, 0.12)',
+                      color: '#38bdf8',
+                      border: '1px solid rgba(56, 189, 248, 0.25)',
+                      fontSize: '0.75rem',
+                      fontWeight: '700',
+                      padding: '4px 10px',
+                      borderRadius: '8px',
+                    }}
+                  >
                     {project.category}
                   </span>
-                  <span style={{ fontSize: '0.8rem', color: '#10b981', fontWeight: '700' }}>● Live</span>
+                  <span className="uk-mono" style={{ color: '#34d399', fontSize: '0.76rem', fontWeight: '700' }}>
+                    ● LIVE
+                  </span>
                 </div>
-                <h3 style={{ fontSize: '1.35rem', fontWeight: '800', marginBottom: '10px' }}>{project.title}</h3>
-                <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: '1.6' }}>{project.description}</p>
+
+                <h3 style={{ fontSize: '1.35rem', fontWeight: '800', color: '#f8fafc', marginBottom: '10px' }}>
+                  {project.title}
+                </h3>
+
+                <p style={{ color: '#94a3b8', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '22px' }}>
+                  {project.description}
+                </p>
               </div>
 
-              <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid #f1f5f9' }}>
-                <p style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '12px', fontWeight: '600' }}>
-                  TECH: <span style={{ color: '#334155' }}>{project.tech_stack}</span>
-                </p>
-                <a href={project.live_url} target="_blank" rel="noreferrer" style={{ color: '#2563eb', fontWeight: '700', textDecoration: 'none' }}>
+              <div>
+                <div
+                  className="uk-mono"
+                  style={{
+                    fontSize: '0.75rem',
+                    color: '#64748b',
+                    marginBottom: '14px',
+                    paddingTop: '12px',
+                    borderTop: '1px solid rgba(148, 163, 184, 0.12)',
+                  }}
+                >
+                  STACK: <span style={{ color: '#cbd5e1' }}>{project.tech_stack}</span>
+                </div>
+
+                <a
+                  href={project.live_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    color: '#38bdf8',
+                    fontWeight: '700',
+                    fontSize: '0.92rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                  }}
+                >
                   Launch Live Site ↗
                 </a>
               </div>

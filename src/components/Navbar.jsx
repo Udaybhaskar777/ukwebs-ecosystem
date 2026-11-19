@@ -3,197 +3,99 @@ import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Services', path: '/services' },
     { name: 'Projects', path: '/projects' },
+    { name: 'Services', path: '/services' },
     { name: 'Pricing', path: '/pricing' },
-    { name: 'Process', path: '/process' },
-    { name: 'FAQ', path: '/faq' },
-    { name: 'Batch Maker', path: '/batch-maker', isNew: true },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   return (
-    <nav
+    <header
       style={{
         position: 'sticky',
         top: 0,
-        zIndex: 100,
-        width: '100%',
-        backgroundColor: 'rgba(255, 255, 255, 0.94)',
-        backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid #e2e8f0',
+        zIndex: 50,
+        backgroundColor: 'rgba(7, 11, 20, 0.82)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderBottom: '1px solid rgba(148, 163, 184, 0.12)',
       }}
     >
       <div
         style={{
-          maxWidth: '1150px',
+          maxWidth: '1220px',
           margin: '0 auto',
-          padding: '14px 20px',
+          padding: '16px 24px',
           display: 'flex',
-          justifyContent: 'space-between',
           alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '16px',
         }}
       >
-        {/* Brand Logo */}
-        <Link
-          to="/"
-          onClick={() => setMenuOpen(false)}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            fontWeight: '800',
-            fontSize: '1.4rem',
-            textDecoration: 'none',
-            letterSpacing: '-0.5px',
-          }}
-        >
-          <span style={{ backgroundColor: '#2563eb', color: '#fff', padding: '2px 8px', borderRadius: '6px' }}>
+        {/* BRAND LOGO */}
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '10px',
+              background: 'linear-gradient(135deg, #38bdf8 0%, #2563eb 100%)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: '900',
+              fontSize: '0.95rem',
+              color: '#fff',
+              letterSpacing: '-0.04em',
+            }}
+          >
             UK
           </span>
-          <span style={{ color: '#0f172a' }}>WEBS</span>
-          <span style={{ width: '8px', height: '8px', backgroundColor: '#ef4444', borderRadius: '50%' }}></span>
+          <span style={{ fontWeight: '900', fontSize: '1.2rem', letterSpacing: '-0.02em', color: '#f8fafc' }}>
+            UK <span style={{ color: '#38bdf8' }}>WEBS</span>
+          </span>
         </Link>
 
-        {/* Desktop Links */}
-        <div className="desktop-nav" style={{ display: 'flex', gap: '20px', alignItems: 'center', fontWeight: '600', fontSize: '0.93rem' }}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              style={{
-                textDecoration: 'none',
-                color: location.pathname === link.path ? '#2563eb' : link.isNew ? '#2563eb' : '#475569',
-                fontWeight: location.pathname === link.path || link.isNew ? '700' : '600',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '5px',
-              }}
-            >
-              {link.name}
-              {link.isNew && (
-                <span
-                  style={{
-                    backgroundColor: '#eff6ff',
-                    color: '#2563eb',
-                    border: '1px solid #bfdbfe',
-                    fontSize: '0.68rem',
-                    fontWeight: '800',
-                    padding: '1px 6px',
-                    borderRadius: '999px',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  Free
-                </span>
-              )}
-            </Link>
-          ))}
+        {/* DESKTOP NAV */}
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+          {navLinks.map((link) => {
+            const active = pathname === link.path;
+            return (
+              <Link
+                key={link.path}
+                to={link.path}
+                style={{
+                  padding: '8px 14px',
+                  borderRadius: '10px',
+                  fontSize: '0.9rem',
+                  fontWeight: active ? '700' : '500',
+                  color: active ? '#38bdf8' : '#cbd5e1',
+                  backgroundColor: active ? 'rgba(56, 189, 248, 0.1)' : 'transparent',
+                  transition: 'all 0.18s ease',
+                }}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* CTA BUTTON */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <Link
             to="/contact"
-            style={{
-              textDecoration: 'none',
-              backgroundColor: '#0f172a',
-              color: '#ffffff',
-              padding: '10px 18px',
-              borderRadius: '8px',
-              fontSize: '0.9rem',
-              fontWeight: '700',
-            }}
+            className="uk-btn-primary"
+            style={{ padding: '9px 18px', fontSize: '0.86rem', borderRadius: '10px' }}
           >
-            Get Quote
+            Launch Project ↗
           </Link>
         </div>
-
-        {/* Mobile Hamburger Button */}
-        <button
-          className="mobile-menu-btn"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle Menu"
-          style={{
-            display: 'none',
-            backgroundColor: '#f1f5f9',
-            border: '1px solid #cbd5e1',
-            borderRadius: '8px',
-            padding: '8px 12px',
-            fontSize: '1.2rem',
-            fontWeight: '800',
-            color: '#0f172a',
-            cursor: 'pointer',
-          }}
-        >
-          {menuOpen ? '✕' : '☰'}
-        </button>
       </div>
-
-      {/* Mobile Dropdown Drawer */}
-      {menuOpen && (
-        <div
-          className="mobile-dropdown"
-          style={{
-            backgroundColor: '#ffffff',
-            borderTop: '1px solid #e2e8f0',
-            padding: '16px 20px 24px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '14px',
-          }}
-        >
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                textDecoration: 'none',
-                color: location.pathname === link.path || link.isNew ? '#2563eb' : '#0f172a',
-                fontWeight: '700',
-                fontSize: '1.05rem',
-                padding: '6px 0',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-              }}
-            >
-              {link.name}
-              {link.isNew && (
-                <span
-                  style={{
-                    backgroundColor: '#eff6ff',
-                    color: '#2563eb',
-                    fontSize: '0.7rem',
-                    fontWeight: '800',
-                    padding: '2px 8px',
-                    borderRadius: '999px',
-                  }}
-                >
-                  FREE TOOL
-                </span>
-              )}
-            </Link>
-          ))}
-          <Link
-            to="/contact"
-            onClick={() => setMenuOpen(false)}
-            style={{
-              textDecoration: 'none',
-              backgroundColor: '#2563eb',
-              color: '#ffffff',
-              textAlign: 'center',
-              padding: '12px',
-              borderRadius: '10px',
-              fontWeight: '700',
-              marginTop: '6px',
-            }}
-          >
-            Get Your Project Quote →
-          </Link>
-        </div>
-      )}
-    </nav>
+    </header>
   );
 }

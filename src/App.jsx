@@ -1,6 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import SpiderCursor from './components/SpiderCursor';
-import WebBackground from './components/WebBackground';
 import Navbar from './components/Navbar';
 import Footer from './components/footer';
 import Home from './pages/Home';
@@ -12,11 +10,11 @@ import Process from './pages/process';
 import Faq from './pages/faq';
 import Contact from './pages/contact';
 import Admin from './pages/admin';
+import BatchGenerator from './pages/BatchGenerator';
 
 function App() {
   return (
     <BrowserRouter>
-      <SpiderCursor />
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Navbar />
         <main style={{ flex: 1 }}>
@@ -30,6 +28,7 @@ function App() {
             <Route path="/faq" element={<Faq />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/batch-maker" element={<BatchGenerator />} />
           </Routes>
         </main>
         <Footer />

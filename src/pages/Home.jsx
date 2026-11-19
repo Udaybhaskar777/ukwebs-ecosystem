@@ -2,6 +2,14 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 
+// Home.jsx lo ekkadaina hero section or tools section lo ee button add cheyi:
+<Link 
+  to="/batch-maker" 
+  className="inline-block bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-6 py-3 rounded-xl transition"
+>
+  Try Free .BAT Launcher Maker →
+</Link>
+
 export default function Home() {
   const [projects, setProjects] = useState([]);
   const [openFaq, setOpenFaq] = useState(0);

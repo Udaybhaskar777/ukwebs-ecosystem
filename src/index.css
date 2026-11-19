@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 * {
   box-sizing: border-box;
@@ -6,26 +6,22 @@
   padding: 0;
 }
 
-body {
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  background-color: #f8fafc;
-  color: #0f172a;
+html, body {
+  max-width: 100%;
   overflow-x: hidden;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background-color: #ffffff;
+  color: #09090b;
   scroll-behavior: smooth;
-  background-image:
-    radial-gradient(#cbd5e1 1px, transparent 1px),
-    radial-gradient(circle at 85% 15%, rgba(37, 99, 235, 0.08) 0%, transparent 45%);
-  background-size: 28px 28px, 100% 100%;
+}
+
+.font-display {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
 }
 
 @keyframes scrollTicker {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
-}
-
-@keyframes floatBadge {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
 }
 
 @keyframes legWiggleLeft {
@@ -53,52 +49,46 @@ body {
   animation: legWiggleRight 0.15s infinite ease-in-out;
 }
 
-.marquee-wrapper {
+.bento-card {
+  background-color: #fafafa;
+  border: 1.5px solid #e4e4e7;
+  border-radius: 20px;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.bento-card:hover {
+  transform: translateY(-4px);
+  border-color: #2563eb;
+  box-shadow: 0 18px 30px -12px rgba(37, 99, 235, 0.15);
+}
+
+.marquee-strip {
   overflow: hidden;
   white-space: nowrap;
-  background: #0f172a;
+  background-color: #09090b;
   color: #ffffff;
-  padding: 15px 0;
+  padding: 13px 0;
+  font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.6px;
-  position: relative;
-  z-index: 2;
+  font-size: 0.88rem;
+  letter-spacing: 0.8px;
 }
 
-.marquee-track {
+.marquee-inner {
   display: inline-block;
-  animation: scrollTicker 24s linear infinite;
+  animation: scrollTicker 22s linear infinite;
 }
 
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-
-.hover-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-
-.hover-card:hover {
-  transform: translateY(-6px);
-  border-color: #2563eb !important;
-  box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
-}
-
-.float-badge {
-  animation: floatBadge 3.5s ease-in-out infinite;
-}
-
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .desktop-nav {
     display: none !important;
   }
   .mobile-menu-btn {
     display: block !important;
+  }
+  .hero-split,
+  .bento-grid,
+  .estimator-grid {
+    grid-template-columns: 1fr !important;
   }
 }

@@ -13,6 +13,7 @@ export default function Navbar() {
     { name: 'Pricing', path: '/pricing' },
     { name: 'Process', path: '/process' },
     { name: 'FAQ', path: '/faq' },
+    { name: 'Batch Maker', path: '/batch-maker', isNew: true },
   ];
 
   return (
@@ -59,18 +60,37 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Links */}
-        <div className="desktop-nav" style={{ display: 'flex', gap: '22px', alignItems: 'center', fontWeight: '600', fontSize: '0.93rem' }}>
+        <div className="desktop-nav" style={{ display: 'flex', gap: '20px', alignItems: 'center', fontWeight: '600', fontSize: '0.93rem' }}>
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
               style={{
                 textDecoration: 'none',
-                color: location.pathname === link.path ? '#2563eb' : '#475569',
-                fontWeight: location.pathname === link.path ? '700' : '600',
+                color: location.pathname === link.path ? '#2563eb' : link.isNew ? '#2563eb' : '#475569',
+                fontWeight: location.pathname === link.path || link.isNew ? '700' : '600',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
               }}
             >
               {link.name}
+              {link.isNew && (
+                <span
+                  style={{
+                    backgroundColor: '#eff6ff',
+                    color: '#2563eb',
+                    border: '1px solid #bfdbfe',
+                    fontSize: '0.68rem',
+                    fontWeight: '800',
+                    padding: '1px 6px',
+                    borderRadius: '999px',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  Free
+                </span>
+              )}
             </Link>
           ))}
           <Link
@@ -130,13 +150,30 @@ export default function Navbar() {
               onClick={() => setMenuOpen(false)}
               style={{
                 textDecoration: 'none',
-                color: location.pathname === link.path ? '#2563eb' : '#0f172a',
+                color: location.pathname === link.path || link.isNew ? '#2563eb' : '#0f172a',
                 fontWeight: '700',
                 fontSize: '1.05rem',
                 padding: '6px 0',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
               }}
             >
               {link.name}
+              {link.isNew && (
+                <span
+                  style={{
+                    backgroundColor: '#eff6ff',
+                    color: '#2563eb',
+                    fontSize: '0.7rem',
+                    fontWeight: '800',
+                    padding: '2px 8px',
+                    borderRadius: '999px',
+                  }}
+                >
+                  FREE TOOL
+                </span>
+              )}
             </Link>
           ))}
           <Link
